@@ -1,0 +1,68 @@
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Hintergrund abdunkeln */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200; /* Muss über dem Grid liegen */
+    backdrop-filter: blur(2px);
+    border-radius: 20px; /* Passend zum Display-Rand */
+}
+
+.modal {
+    background-color: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 12px;
+    width: 80%;
+    max-width: 300px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.title {
+    color: white;
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.optionButton {
+    background-color: #334155;
+    color: #e2e8f0;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+    font-size: 0.9rem;
+}
+
+.optionButton:hover {
+    background-color: #475569;
+    color: white;
+}
+
+.closeButton {
+    margin-top: 10px;
+    background-color: transparent;
+    color: #94a3b8;
+    border: 1px solid #334155;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.closeButton:hover {
+    background-color: rgba(255,255,255,0.05);
+    color: white;
+}

@@ -1,0 +1,78 @@
+.container {
+    /* 9:16 Aspect Ratio */
+    width: min(50vh, 90vw); /* Responsive Breite basierend auf Höhe */
+    aspect-ratio: 9 / 16;
+    background-color: #0a192f; /* Dunkelblau */
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Der Header-Bereich für den Edit Button */
+.header {
+    height: 60px; /* Platz oben freilassen */
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+    z-index: 100;
+}
+
+.editButton {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.editButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.editActive {
+    background-color: #ffffff;
+    color: #0a192f;
+    border-color: #ffffff;
+}
+
+/* Das Grid System */
+.gridContainer {
+    flex: 1; /* Nimmt den restlichen Platz ein */
+    padding: 20px;
+    display: grid;
+    /* 2 Spalten, 6 Reihen */
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 15px; /* Abstand zwischen den Modulen */
+    position: relative;
+}
+
+/* Platzhalter Slot (Leer) */
+.emptySlot {
+    background-color: rgba(255, 255, 255, 0.1); /* Hellgrau durchsichtig */
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+}
+
+.emptySlot:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Das Plus Icon */
+.plusIcon {
+    color: black; /* Wie angefordert: Schwarzes Plus */
+    font-size: 2rem;
+    font-weight: bold;
+    opacity: 0.6;
+}
