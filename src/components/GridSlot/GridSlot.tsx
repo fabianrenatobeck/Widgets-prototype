@@ -2,14 +2,15 @@ import React from 'react';
 import styles from './GridSlot.module.css';
 import { WidgetInstance, WidgetSize } from '@/types';
 import { getWidgetComponent } from '@/widgets';
+import { getSizeDims } from '@/utils/gridLogic';
 
 interface GridSlotProps {
     widget: WidgetInstance;
     isEditMode: boolean;
     onDelete: (id: string) => void;
-    onResize: (id: string, newSize: WidgetSize) => void;
-    // Drag & Drop Props
-    onDragStart: (e: React.DragEvent, id: string) => void;
+    onResize: (id: string, direction: 'top' | 'bottom' | 'left' | 'right') => void;
+    // DragStart übergibt jetzt auch den Offset (wo wir angefasst haben)
+    onDragStart: (e: React.DragEvent, id: string, offsetX: number, offsetY: number) => void;
 }
 
 const GridSlot: React.FC<GridSlotProps> = ({
@@ -21,20 +22,25 @@ const GridSlot: React.FC<GridSlotProps> = ({
                                            }) => {
     const WidgetComponent = getWidgetComponent(widget.type);
 
-    // Logik für Resizing
-    const handleResize = (direction: 'horizontal' | 'vertical') => {
-        let newW = parseInt(widget.size[0]);
-        let newH = parseInt(widget.size[2]);
+    const handleDragStartInternal = (e: React.DragEvent) => {
+        // 1. Wir holen uns die Abmessungen des angeklickten HTML Elements
+        const rect = (e.target as HTMLElement).getBoundingClientRect();
 
-        // Einfache Toggle Logik: 1->2 oder 2->1
-        if (direction === 'horizontal') {
-            newW = newW === 1 ? 2 : 1;
-        } else {
-            newH = newH === 1 ? 2 : 1;
-        }
+        // 2. Wo haben wir geklickt (relativ zur linken oberen Ecke des Widgets)?
+        const clickX = e.clientX - rect.left;
+        const clickY = e.clientY - rect.top;
 
-        const newSize = `${newW}x${newH}` as WidgetSize;
-        onResize(widget.id, newSize);
+        // 3. Wie groß ist eine Zelle ungefähr?
+        // Da wir wissen, wie groß das Widget ist (z.B. 2 breit), teilen wir die Breite durch die Grid-Breite
+        const { w, h } = getSizeDims(widget.size);
+        const cellWidth = rect.width / w;
+        const cellHeight = rect.height / h;
+
+        // 4. Offset berechnen (0 oder 1)
+        const offsetX = Math.floor(clickX / cellWidth);
+        const offsetY = Math.floor(clickY / cellHeight);
+
+        onDragStart(e, widget.id, offsetX, offsetY);
     };
 
     return (
@@ -43,7 +49,7 @@ const GridSlot: React.FC<GridSlotProps> = ({
                 isEditMode ? styles.modeEdit : styles.modeView
             }`}
             draggable={isEditMode}
-            onDragStart={(e) => onDragStart(e, widget.id)}
+            onDragStart={handleDragStartInternal}
         >
             <div className={styles.content}>
                 <WidgetComponent />
@@ -51,35 +57,27 @@ const GridSlot: React.FC<GridSlotProps> = ({
 
             {isEditMode && (
                 <>
-                    {/* Delete Button */}
                     <button
                         className={styles.deleteBtn}
-                        onClick={(e) => {
-                            e.stopPropagation(); // Verhindert Drag Start beim Klicken
-                            onDelete(widget.id);
-                        }}
-                    >
-                        ✕
-                    </button>
+                        onClick={(e) => { e.stopPropagation(); onDelete(widget.id); }}
+                    >✕</button>
 
-                    {/* Resize Handle: Rechts (Nur Breite ändern) */}
+                    {/* Alle 4 Handles */}
                     <div
                         className={`${styles.resizeHandle} ${styles.handleRight}`}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            handleResize('horizontal');
-                        }}
-                        title="Breite ändern"
+                        onClick={(e) => { e.stopPropagation(); onResize(widget.id, 'right'); }}
                     />
-
-                    {/* Resize Handle: Unten (Nur Höhe ändern) */}
                     <div
                         className={`${styles.resizeHandle} ${styles.handleBottom}`}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            handleResize('vertical');
-                        }}
-                        title="Höhe ändern"
+                        onClick={(e) => { e.stopPropagation(); onResize(widget.id, 'bottom'); }}
+                    />
+                    <div
+                        className={`${styles.resizeHandle} ${styles.handleLeft}`}
+                        onClick={(e) => { e.stopPropagation(); onResize(widget.id, 'left'); }}
+                    />
+                    <div
+                        className={`${styles.resizeHandle} ${styles.handleTop}`}
+                        onClick={(e) => { e.stopPropagation(); onResize(widget.id, 'top'); }}
                     />
                 </>
             )}

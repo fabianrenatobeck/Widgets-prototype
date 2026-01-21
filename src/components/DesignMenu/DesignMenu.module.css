@@ -1,0 +1,99 @@
+.sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 250px; /* Breite des Menüs */
+    height: 100%;
+    background-color: rgba(20, 20, 25, 0.95); /* Fast schwarz, leicht transparent */
+    backdrop-filter: blur(10px);
+    z-index: 150; /* Über dem Grid, unter dem WidgetSelector (falls offen) */
+    transform: translateX(100%); /* Standardmäßig draußen */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.open {
+    transform: translateX(0); /* Reinfahren */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+.closeBtn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.label {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.colorGrid {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.colorOption {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.colorOption:hover {
+    transform: scale(1.1);
+}
+
+.colorOption.active {
+    border-color: white;
+}
+
+/* Custom Input stylen */
+.colorInputContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.05);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.colorInput {
+    background: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.hexValue {
+    color: white;
+    font-family: monospace;
+    font-size: 0.9rem;
+}

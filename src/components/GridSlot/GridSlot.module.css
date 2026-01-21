@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    overflow: visible; /* Wichtig für die Buttons am Rand */
+    overflow: visible;
     transition: background-color 0.3s, box-shadow 0.3s;
     user-select: none;
 }
@@ -24,8 +24,9 @@
     cursor: grabbing;
 }
 
+/* variable zur farbänderung */
 .modeView {
-    background-color: #60a5fa;
+    background-color: var(--widget-bg, #60a5fa);
     color: #ffffff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -40,16 +41,15 @@
     z-index: 1;
 }
 
-/* --- Controls im Edit Modus --- */
+/* --- Controls --- */
 
-/* Lösch Button */
 .deleteBtn {
     position: absolute;
     top: -8px;
     right: -8px;
     width: 24px;
     height: 24px;
-    background-color: #ef4444; /* Rot */
+    background-color: #ef4444;
     color: white;
     border: 2px solid #0a192f;
     border-radius: 50%;
@@ -66,7 +66,7 @@
     transform: scale(1.1);
 }
 
-/* Resize Handles (Mitte der Kanten) */
+/* Resize Handles Allgemein */
 .resizeHandle {
     position: absolute;
     background-color: white;
@@ -87,7 +87,9 @@
     transform: scale(1.2);
 }
 
-/* Positionen der Handles */
+/* Positionen der 4 Handles */
+
+/* RECHTS */
 .handleRight {
     right: -8px;
     top: 50%;
@@ -95,9 +97,26 @@
     cursor: e-resize;
 }
 
+/* LINKS */
+.handleLeft {
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: w-resize;
+}
+
+/* UNTEN */
 .handleBottom {
     bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
     cursor: s-resize;
+}
+
+/* OBEN */
+.handleTop {
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: n-resize;
 }

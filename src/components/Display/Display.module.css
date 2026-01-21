@@ -1,24 +1,46 @@
 .container {
-    /* 9:16 Aspect Ratio */
-    width: min(50vh, 90vw); /* Responsive Breite basierend auf Höhe */
+    width: min(50vh, 90vw);
     aspect-ratio: 9 / 16;
-    background-color: #0a192f; /* Dunkelblau */
+
+    /* HIER DIE ÄNDERUNG: Variable nutzen */
+    background-color: var(--display-bg, #0a192f);
+
     border-radius: 20px;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* Wichtig, damit das Menü rausfahren kann ohne Scrollbalken */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
+    transition: background-color 0.5s ease; /* Weicher Farbwechsel */
 }
 
-/* Der Header-Bereich für den Edit Button */
 .header {
-    height: 60px; /* Platz oben freilassen */
+    height: 60px;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     padding: 15px;
     z-index: 100;
+    gap: 10px; /* Abstand zwischen den Buttons */
 }
+
+/* Neuer Button Style für Design */
+.designButton {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.designButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ... Rest bleibt gleich ... */
 
 .editButton {
     background: transparent;
