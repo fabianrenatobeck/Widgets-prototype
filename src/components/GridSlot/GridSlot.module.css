@@ -85,6 +85,7 @@
 .resizeHandle:hover {
     background-color: #60a5fa;
     transform: scale(1.2);
+
 }
 
 /* Positionen der 4 Handles */
@@ -93,30 +94,22 @@
 .handleRight {
     right: -8px;
     top: 50%;
-    transform: translateY(-50%);
-    cursor: e-resize;
 }
 
 /* LINKS */
 .handleLeft {
     left: -8px;
     top: 50%;
-    transform: translateY(-50%);
-    cursor: w-resize;
 }
 
 /* UNTEN */
 .handleBottom {
     bottom: -8px;
     left: 50%;
-    transform: translateX(-50%);
-    cursor: s-resize;
 }
 
 /* OBEN */
 .handleTop {
     top: -8px;
     left: 50%;
-    transform: translateX(-50%);
-    cursor: n-resize;
 }
